@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
   const char ASSIGNMENT3[] = "Environment Variables and Process IDs";
 
   const int assignment3_env_result = setenv( "ASSIGNMENT3", ASSIGNMENT3, 1 );
-  printf( "Assignment 3 is: ", getenv( "ASSIGNMENT3" ) );
+  printf( "Assignment 3 is: %s\n", getenv( "ASSIGNMENT3" ) );
 
   // Step 3
   // Write code to get your process's ID (PID)

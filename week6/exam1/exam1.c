@@ -32,8 +32,29 @@
  *    - write(): Writes the content to the destination file.
  *    - close(): Closes the files after the operation.
  */
-int copy_file(const char *source, const char *destination)
-{
+int copy_file( const char *source, const char *destination ) {
+
+    int from = open( source, O_RDONLY );
+    int to = open( destination, O_WRONLY | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+    
+    if ( from == -1 || to == -1 ) {
+
+        printf( "Opening Error!\n");
+        return -1;
+
+    }
+
+    char buffer[ BUFFER_SIZE ] = { 0 };
+
+    const int bytes_read = read( from, buffer, sizeof( buffer ) - 1 );
+
+    write( to, buffer, bytes_read );
+
+    close( from );
+    close( to );
+
+    return 0;
+
 }
 
 /**
@@ -50,8 +71,14 @@ int copy_file(const char *source, const char *destination)
  *
  * This function uses the standard library function getenv() to get the value.
  */
-const char *get_env_var(const char *var_name)
-{
+const char *get_env_var( const char *var_name ) {
+
+    const char* env_value = getenv( var_name );
+    
+    if ( env_value == NULL ) return "Environment Variable not found";
+
+    return env_value;
+
 }
 
 /**
@@ -69,6 +96,4 @@ const char *get_env_var(const char *var_name)
  *    0 on success.
  *   -1 on failure (if setting the environment variable fails).
  */
-int set_env_var(const char *var_name, const char *value, int overwrite)
-{
-}
+int set_env_var( const char *var_name, const char *value, int overwrite ) { return setenv( var_name, value, overwrite ); }
