@@ -3,7 +3,7 @@ from typing import Tuple
 
 class Triangle:
 
-    def __init__( self, base: float, height: float ) -> None:
+    def __init__( self, base: float, height: float) -> None:
        
         if base <= 0:
             base = 1
@@ -59,9 +59,10 @@ beta : { self.beta }
             return self.perimeter
 
         if self.side == 0:
-            return self.calc_side() * 2
+            self.calc_side()
 
-        return self.side * 2
+        self.perimeter = self.side * 2 + self.__base 
+        return self.perimeter
 
     def calc_area( self ) -> float:
         if self.area > 0:
@@ -74,7 +75,7 @@ beta : { self.beta }
         if self.alpha > 0:
             return self.alpha
 
-        self.alpha = atan( self.__height / ( self.__base * 0.5 ) )
+        self.alpha = degrees( atan( self.__height / ( self.__base * 0.5 ) ) )
         return self.alpha
 
     def calc_beta( self ) -> float:
@@ -93,4 +94,3 @@ beta : { self.beta }
         self.calc_beta()
 
         return ( self.side, self.perimeter, self.area, self.alpha, self.beta )
-

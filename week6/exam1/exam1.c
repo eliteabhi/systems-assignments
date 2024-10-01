@@ -34,12 +34,12 @@
  */
 int copy_file( const char *source, const char *destination ) {
 
-    int from = open( source, O_RDONLY );
-    int to = open( destination, O_WRONLY | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+    const int from = open( source, O_RDONLY );
+    const int to = open( destination, O_WRONLY | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
     
     if ( from == -1 || to == -1 ) {
 
-        printf( "Opening Error!\n");
+        printf( "Opening Error!\n" );
         return -1;
 
     }
