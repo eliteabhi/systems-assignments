@@ -35,23 +35,47 @@
 int copy_file( const char *source, const char *destination ) {
 
     const int from = open( source, O_RDONLY );
-    const int to = open( destination, O_WRONLY | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
-    
-    if ( from == -1 || to == -1 ) {
+    if ( from == -1 ) {
 
-        printf( "Opening Error!\n" );
+        printf( "Opening Source Error!\n" );
         return -1;
 
     }
 
+    const int to = open( destination, O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+    if ( to == -1 ) {
+
+        printf( "Opening Destination Error!\n" );
+        return -1;
+    
+    }
+
+
     char buffer[ BUFFER_SIZE ] = { 0 };
 
     const int bytes_read = read( from, buffer, sizeof( buffer ) - 1 );
+    if ( bytes_read == -1 ) {
 
-    write( to, buffer, bytes_read );
+        printf( "Reading Source Error!\n" );
+        
+        close( from );
+        close( to );
+        
+        return -1;
+
+    }
+
+    const int write_status = write( to, buffer, bytes_read );
 
     close( from );
     close( to );
+
+    if ( write_status == -1 ) {
+
+        printf( "Failed to write to destination!\n" );
+        return -1;
+
+    }
 
     return 0;
 
