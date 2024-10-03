@@ -42,7 +42,7 @@ int copy_file( const char *source, const char *destination ) {
 
     }
 
-    const int to = open( destination, O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+    const int to = open( destination, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
     if ( to == -1 ) {
 
         printf( "Opening Destination Error!\n" );
@@ -99,7 +99,7 @@ const char *get_env_var( const char *var_name ) {
 
     const char* env_value = getenv( var_name );
     
-    if ( env_value == NULL ) return "Environment Variable not found";
+    if ( env_value == NULL ) return "Environment variable not found";
 
     return env_value;
 
