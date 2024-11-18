@@ -3,6 +3,7 @@
         "*.tera": "html",
         "*.mat": "matlab",
         "*.m": "octave",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "stdlib.h": "c"
     }
 }
